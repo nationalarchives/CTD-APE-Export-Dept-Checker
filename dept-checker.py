@@ -1,7 +1,6 @@
 from tkinter import filedialog
 import os, os.path, math
 import deptCodes
-from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 
 
@@ -12,7 +11,7 @@ def exported_xml_files(root_path):
     
 
 def current_APE_values(count="", page_no="", references = []):
-    """ Get current depts from https://contentchecker.archivesportaleurope.net/advanced-search/search-in-archives/?term=*&levels[]=archdesc&countries[]=UNITED_KINGDOM:G:37&institutions[]=The%20National%20Archives%202:32391&using=default&sort=Finding%20aid%20no&context=listTab
+    """ Get current depts from content checker site at https://contentchecker.archivesportaleurope.net/advanced-search/search-in-archives/?term=*&levels[]=archdesc&countries[]=UNITED_KINGDOM:G:37&institutions[]=The%20National%20Archives%202:32391&using=default&sort=Finding%20aid%20no&context=listTab
         Currently (14/11/2023) the APE webpage requires javascript to work which is why we are using requests_html rather than requests and beautiful soup
     """
     session = HTMLSession()
@@ -26,9 +25,6 @@ def current_APE_values(count="", page_no="", references = []):
 
 
     webpage.html.render()
-
-    #soup = BeautifulSoup(webpage.content, "html.parser")
-    #count = soup.find("span", {"data-populate": "results_count"}).text
 
     if count == "":
         count = webpage.html.xpath("//span[@data-populate='results_count']/text()")[0]
